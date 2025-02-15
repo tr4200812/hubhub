@@ -45,7 +45,7 @@ In the event of any conflict or inconsistency between the DPA and any other term
 
 1.10 “**Sensitive Data**” means any Personal Data revealing racial or ethnic origin; political opinions, religious or philosophical beliefs or trade union membership; processing of genetic data or biometric data for the purposes of uniquely identifying a natural person; data concerning health, a natural person’s sex life or sexual orientation; and data relating to offences, criminal convictions, or security measures.
 
-## 2. Status and Compliance.
+### 2. Status and Compliance.
 
 #### 2.1 Data Processing.
 
@@ -135,7 +135,7 @@ GitHub is liable for onward transfers of Protected Data to its subprocessors, su
 
 #### 6.2 Acceptance of GitHub Subprocessors.
 
-Customer authorizes GitHub and its subprocesors to appoint and use subprocessors in accordance with this Section 6 and the Agreement.
+Customer authorizes GitHub and its subprocessors to appoint and use subprocessors in accordance with this Section 6 and the Agreement.
 
 #### 6.3 General Consent for Onward Subprocessing.
 
@@ -213,7 +213,7 @@ In countries where regulatory approval is required for use of the Standard Contr
 
 For the purposes of Article 46 (2) of the General Data Protection Regulation (EU 2016/679) for the transfer of personal data to processors established in third countries which do not ensure an adequate level of data protection, Customer (as data exporter) and GitHub (as data importer, whose signature appears below), each a “party,” together “the parties”, have agreed on the following Contractual Clauses (the “Clauses” or “Standard Contractual Clauses”) in order to adduce adequate safeguards with respect to the protection of privacy and fundamental rights and freedoms of individuals for the transfer by the data exporter to the data importer of the personal data specified in Appendix 1.
 
-#### Clause 1: Definitions
+#### Clause 1: Definitions <!-- markdownlint-disable-line heading-increment -->
 
 (a) 'personal data', 'special categories of data', 'process/processing', 'controller', 'processor', 'data subject' and 'supervisory authority' shall have the same meaning as in the General Data Protection Regulation (EU 2016/679) on the protection of individuals with regard to the processing of personal data and on the free movement of such data;
 

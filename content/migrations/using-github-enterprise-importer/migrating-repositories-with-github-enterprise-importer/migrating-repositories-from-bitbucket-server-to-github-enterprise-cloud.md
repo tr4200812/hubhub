@@ -11,8 +11,6 @@ redirect_from:
   - /early-access/enterprise-importer/migrating-repositories-with-github-enterprise-importer/migrating-repositories-from-bitbucket-server-to-github-enterprise-cloud
 ---
 
-{% data reusables.enterprise-migration-tool.bbs-release-phase %}
-
 ## About repository migrations with {% data variables.product.prodname_importer_proper_name %}
 
 You can migrate individual repositories or all repositories from a BitBucket Server instance using {% data variables.product.prodname_cli %}.
@@ -107,7 +105,7 @@ When you migrate a repository, by default, the {% data variables.product.prodnam
 1. Downloads the migration archive from the Bitbucket Server instance to the machine where you're running the {% data variables.product.prodname_bbs2gh_cli %}, using SFTP (Linux) or SMB (Windows)
 1. Uploads the migration archives to the blob storage provider of your choice
 1. Starts your migration in {% data variables.product.prodname_ghe_cloud %}, using the URLs of the archives stored with your blob storage provider
-1. Deletes the migration archive
+1. Deletes the migration archive from your local machine. (You'll need to delete the archive from your blob storage provider manually once the migration has finished.)
 
 Alternatively, you can use the {% data variables.product.prodname_cli %} to generate the archive, download that archive manually, and then use the {% data variables.product.prodname_cli %} to continue the migration.
 
@@ -178,7 +176,7 @@ gh bbs2gh migrate-repo --bbs-server-url BBS-SERVER-URL \
 
 Your migration archive will be generated, and its path will be printed in the command output:
 
-```
+```text
 [12:14] [INFO] Export completed. Your migration archive should be ready on your
 instance at $BITBUCKET_SHARED_HOME/data/migration/export/Bitbucket_export_9.tar
 ```
@@ -192,6 +190,9 @@ To import your migration archive into {% data variables.product.prodname_dotcom 
 ```shell copy
 gh bbs2gh migrate-repo --archive-path ARCHIVE-PATH \
   --github-org DESTINATION --github-repo NEW-NAME \
+  --bbs-server-url BBS-SERVER-URL \
+  --bbs-project PROJECT \
+  --bbs-repo CURRENT-NAME \
   # Use the following option if you're using AWS S3 as your blob storage provider
   --aws-bucket-name AWS-BUCKET-NAME
 ```
@@ -200,6 +201,9 @@ gh bbs2gh migrate-repo --archive-path ARCHIVE-PATH \
 {% data reusables.enterprise-migration-tool.archive-path-placeholder %}
 {% data reusables.enterprise-migration-tool.destination-placeholder %}
 {% data reusables.enterprise-migration-tool.new-name-placeholder %}
+{% data reusables.enterprise-migration-tool.bbs-server-url-placeholder %}
+{% data reusables.enterprise-migration-tool.project-placeholder %}
+{% data reusables.enterprise-migration-tool.current-name-placeholder %}
 {% data reusables.enterprise-migration-tool.aws-bucket-name-placeholder %}
 
 ## Step 6: Validate your migration and check the error log

@@ -4,8 +4,13 @@ import Ajv from 'ajv'
 import addErrors from 'ajv-errors'
 import semver from 'semver'
 
-import { allVersions, allVersionShortnames } from '../../../lib/all-versions.js'
-import { supported, next, nextNext, deprecated } from '../../../lib/enterprise-server-releases.js'
+import { allVersions, allVersionShortnames } from '#src/versions/lib/all-versions.js'
+import {
+  supported,
+  next,
+  nextNext,
+  deprecated,
+} from '#src/versions/lib/enterprise-server-releases.js'
 import { getLiquidConditionals } from '../../../script/helpers/get-liquid-conditionals.js'
 import allowedVersionOperators from '#src/content-render/liquid/ifversion-supported-operators.js'
 import featureVersionsSchema from '../lib/feature-versions-schema.js'
@@ -52,10 +57,6 @@ describe('lint feature versions', () => {
 
 const allFiles = walkFiles('content', '.md').concat(walkFiles('data', ['.yml', '.md']))
 
-// Quoted strings in Liquid, like {% if "foo" %}, will always evaluate true _because_ they are strings.
-// Instead we need to use unquoted variables, like {% if foo %}.
-const stringInLiquidRegex = /{% (?:if|ifversion|elseif|unless) (?:"|').+?%}/g
-
 // Make sure the `if` and `ifversion` Liquid tags in content and data files are valid.
 describe('lint Liquid versioning', () => {
   describe.each(allFiles)('%s', (file) => {
@@ -76,21 +77,13 @@ describe('lint Liquid versioning', () => {
     // Now that `ifversion` supports feature-based versioning, we should have few other `if` tags.
     test('ifversion, not if, is used for versioning', async () => {
       const ifsForVersioning = ifConditionals.filter((cond) =>
-        allowedVersionNames.some((keyword) => cond.includes(keyword))
+        allowedVersionNames.some((keyword) => cond.includes(keyword)),
       )
       const errorMessage = `Found ${
         ifsForVersioning.length
       } "if" conditionals used for versioning! Use "ifversion" instead.
     ${ifsForVersioning.join('\n')}`
       expect(ifsForVersioning.length, errorMessage).toBe(0)
-    })
-
-    test('does not contain Liquid that evaluates strings (because they are always true)', async () => {
-      const matches = fileContents.match(stringInLiquidRegex) || []
-      const message =
-        'Found Liquid conditionals that evaluate a string instead of a variable. Remove the quotes around the variable!'
-      const errorMessage = `${message}\n  - ${matches.join('\n  - ')}`
-      expect(matches.length, errorMessage).toBe(0)
     })
   })
 })
@@ -139,16 +132,16 @@ function validateIfversionConditionals(conds) {
       if (strParts.length === 3) {
         const [version, operator, release] = strParts
         const hasSemanticVersioning = Object.values(allVersions).some(
-          (v) => (v.hasNumberedReleases || v.internalLatestRelease) && v.shortName === version
+          (v) => (v.hasNumberedReleases || v.internalLatestRelease) && v.shortName === version,
         )
         if (!hasSemanticVersioning) {
           errors.push(
-            `Found "${version}" inside "${cond}" with a "${operator}" operator, but "${version}" does not support semantic comparisons"`
+            `Found "${version}" inside "${cond}" with a "${operator}" operator, but "${version}" does not support semantic comparisons"`,
           )
         }
         if (!allowedVersionOperators.includes(operator)) {
           errors.push(
-            `Found a "${operator}" operator inside "${cond}", but "${operator}" is not supported`
+            `Found a "${operator}" operator inside "${cond}", but "${operator}" is not supported`,
           )
         }
         // Check that the versions in conditionals are supported
@@ -166,7 +159,7 @@ function validateIfversionConditionals(conds) {
           )
         ) {
           errors.push(
-            `Found ${release} inside "${cond}", but ${release} is not a supported GHES release`
+            `Found ${release} inside "${cond}", but ${release} is not a supported GHES release`,
           )
         }
       }

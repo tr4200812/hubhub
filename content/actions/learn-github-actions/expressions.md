@@ -17,7 +17,7 @@ You can use expressions to programmatically set environment variables in workflo
 
 Expressions are commonly used with the conditional `if` keyword in a workflow file to determine whether a step should run. When an `if` conditional is `true`, the step will run.
 
-You need to use specific syntax to tell {% data variables.product.prodname_dotcom %} to evaluate an expression rather than treat it as a string.
+{% data reusables.actions.expressions-syntax-evaluation %}
 
 {% raw %}
 `${{ <expression> }}`
@@ -32,7 +32,7 @@ You need to use specific syntax to tell {% data variables.product.prodname_dotco
 ```yaml
 steps:
   - uses: actions/hello-world-javascript-action@e76147da8e5c81eaf017dede5645551d4b94427b
-    if: {% raw %}${{ <expression> }}{% endraw %}
+    if: <expression> 
 ```
 
 ### Example setting an environment variable
@@ -80,7 +80,7 @@ env:
 | Operator    | Description |
 | ---         | ---         |
 | `( )`       | Logical grouping |
-| `[ ]`       | Index
+| `[ ]`       | Index |
 | `.`         | Property de-reference |
 | `!`         | Not |
 | `<`         | Less than |
@@ -91,6 +91,15 @@ env:
 | `!=`        | Not equal |
 | `&&`        | And |
 |  <code>\|\|</code> | Or |
+
+  {% note %}
+
+  **Notes:**
+  - {% data variables.product.company_short %} ignores case when comparing strings.
+  - `steps.<step_id>.outputs.<output_name>` evaluates as a string. {% data reusables.actions.expressions-syntax-evaluation %} For more information, see "[AUTOTITLE](/actions/learn-github-actions/contexts#steps-context)."
+  - For numerical comparison, the `fromJSON()` function can be used to convert a string to a number. For more information on the `fromJSON()` function, see "[fromJSON](#fromjson)."
+
+  {% endnote %}
 
 {% data variables.product.prodname_dotcom %} performs loose equality comparisons.
 
@@ -109,7 +118,7 @@ env:
 
 {% data variables.product.prodname_dotcom %} offers ternary operator like behaviour that you can use in expressions. By using a ternary operator in this way, you can dynamically set the value of an environment variable based on a condition, without having to write separate if-else blocks for each possible option.
 
-#### Example
+### Example
 
 {% raw %}
 
@@ -187,7 +196,7 @@ Replaces values in the `string`, with the variable `replaceValueN`. Variables in
 
 {% raw %}
 
-```js
+```javascript
 format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat')
 ```
 
@@ -199,7 +208,7 @@ Returns 'Hello Mona the Octocat'.
 
 {% raw %}
 
-```js
+```javascript
 format('{{Hello {0} {1} {2}!}}', 'Mona', 'the', 'Octocat')
 ```
 
@@ -329,11 +338,11 @@ steps:
 
 Causes the step to always execute, and returns `true`, even when canceled. The `always` expression is best used at the step level or on tasks that you expect to run even when a job is canceled. For example, you can use `always` to send logs even when a job is canceled.
 
-{% note %}
+{% warning %}
 
-**Note:** Avoid using `always` for any task that could suffer from a critical failure, for example: getting sources, otherwise the workflow may hang until it times out. If you want to run a job or step regardless of its success or failure, use the recommended alternative:`if: success() || failure()`
+**Warning:** Avoid using `always` for any task that could suffer from a critical failure, for example: getting sources, otherwise the workflow may hang until it times out. If you want to run a job or step regardless of its success or failure, use the recommended alternative: `if: {% raw %}${{ !cancelled() }}{% endraw %}`
 
-{% endnote %}
+{% endwarning %}
 
 #### Example of `always`
 

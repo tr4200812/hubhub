@@ -251,6 +251,28 @@
       },
       {
         "category": "orgs",
+        "slug": "list-organization-rule-suites",
+        "subcategory": "rule-suites",
+        "verb": "get",
+        "requestPath": "/orgs/{org}/rulesets/rule-suites",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "orgs",
+        "slug": "get-an-organization-rule-suite",
+        "subcategory": "rule-suites",
+        "verb": "get",
+        "requestPath": "/orgs/{org}/rulesets/rule-suites/{rule_suite_id}",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "orgs",
         "slug": "get-an-organization-repository-ruleset",
         "subcategory": "rules",
         "verb": "get",
@@ -424,6 +446,45 @@
         "access": "read",
         "user-to-server": true,
         "server-to-server": false,
+        "additional-permissions": []
+      }
+    ]
+  },
+  "organization_copilot_seat_management": {
+    "title": "GitHub Copilot for Business",
+    "displayTitle": "Organization permissions for \"GitHub Copilot for Business\"",
+    "permissions": [
+      {
+        "category": "copilot",
+        "slug": "get-copilot-for-business-seat-information-and-settings-for-an-organization",
+        "subcategory": "copilot-for-business",
+        "verb": "get",
+        "requestPath": "/orgs/{org}/copilot/billing",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "copilot",
+        "slug": "list-all-copilot-for-business-seat-assignments-for-an-organization",
+        "subcategory": "copilot-for-business",
+        "verb": "get",
+        "requestPath": "/orgs/{org}/copilot/billing/seats",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "copilot",
+        "slug": "add-teams-to-the-copilot-for-business-subscription-for-an-organization",
+        "subcategory": "copilot-for-business",
+        "verb": "post",
+        "requestPath": "/orgs/{org}/copilot/billing/selected_teams",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
         "additional-permissions": []
       }
     ]
@@ -827,7 +888,7 @@
         "slug": "manage-access-control-for-organization-codespaces",
         "subcategory": "organizations",
         "verb": "put",
-        "requestPath": "/orgs/{org}/codespaces/billing",
+        "requestPath": "/orgs/{org}/codespaces/access",
         "access": "write",
         "user-to-server": true,
         "server-to-server": true,
@@ -835,10 +896,10 @@
       },
       {
         "category": "codespaces",
-        "slug": "add-users-to-codespaces-billing-for-an-organization",
+        "slug": "add-users-to-codespaces-access-for-an-organization",
         "subcategory": "organizations",
         "verb": "post",
-        "requestPath": "/orgs/{org}/codespaces/billing/selected_users",
+        "requestPath": "/orgs/{org}/codespaces/access/selected_users",
         "access": "write",
         "user-to-server": true,
         "server-to-server": true,
@@ -846,10 +907,10 @@
       },
       {
         "category": "codespaces",
-        "slug": "removes-users-from-codespaces-billing-for-an-organization",
+        "slug": "remove-users-from-codespaces-access-for-an-organization",
         "subcategory": "organizations",
         "verb": "delete",
-        "requestPath": "/orgs/{org}/codespaces/billing/selected_users",
+        "requestPath": "/orgs/{org}/codespaces/access/selected_users",
         "access": "write",
         "user-to-server": true,
         "server-to-server": true,
@@ -2156,6 +2217,17 @@
       },
       {
         "category": "actions",
+        "slug": "force-cancel-a-workflow-run",
+        "subcategory": "workflow-runs",
+        "verb": "post",
+        "requestPath": "/repos/{owner}/{repo}/actions/runs/{run_id}/force-cancel",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "actions",
         "slug": "list-jobs-for-a-workflow-run",
         "subcategory": "workflow-jobs",
         "verb": "get",
@@ -2693,6 +2765,17 @@
       },
       {
         "category": "repos",
+        "slug": "check-if-automated-security-fixes-are-enabled-for-a-repository",
+        "subcategory": "repos",
+        "verb": "get",
+        "requestPath": "/repos/{owner}/{repo}/automated-security-fixes",
+        "access": "read",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "repos",
         "slug": "enable-automated-security-fixes",
         "subcategory": "repos",
         "verb": "put",
@@ -3221,7 +3304,9 @@
         "access": "write",
         "user-to-server": true,
         "server-to-server": true,
-        "additional-permissions": []
+        "additional-permissions": [
+          "contents"
+        ]
       },
       {
         "category": "interactions",
@@ -3387,10 +3472,54 @@
       },
       {
         "category": "repos",
+        "slug": "enable-private-vulnerability-reporting-for-a-repository",
+        "subcategory": "repos",
+        "verb": "put",
+        "requestPath": "/repos/{owner}/{repo}/private-vulnerability-reporting",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "repos",
+        "slug": "disable-private-vulnerability-reporting-for-a-repository",
+        "subcategory": "repos",
+        "verb": "delete",
+        "requestPath": "/repos/{owner}/{repo}/private-vulnerability-reporting",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "repos",
         "slug": "create-a-repository-ruleset",
         "subcategory": "rules",
         "verb": "post",
         "requestPath": "/repos/{owner}/{repo}/rulesets",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "repos",
+        "slug": "list-repository-rule-suites",
+        "subcategory": "rule-suites",
+        "verb": "get",
+        "requestPath": "/repos/{owner}/{repo}/rulesets/rule-suites",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "repos",
+        "slug": "get-a-repository-rule-suite",
+        "subcategory": "rule-suites",
+        "verb": "get",
+        "requestPath": "/repos/{owner}/{repo}/rulesets/rule-suites/{rule_suite_id}",
         "access": "write",
         "user-to-server": true,
         "server-to-server": true,
@@ -4120,6 +4249,17 @@
       },
       {
         "category": "codespaces",
+        "slug": "check-if-permissions-defined-by-a-devcontainer-have-been-accepted-by-the-authenticated-user",
+        "subcategory": "codespaces",
+        "verb": "get",
+        "requestPath": "/repos/{owner}/{repo}/codespaces/permissions_check",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": false,
+        "additional-permissions": []
+      },
+      {
+        "category": "codespaces",
         "slug": "create-a-codespace-from-a-pull-request",
         "subcategory": "codespaces",
         "verb": "post",
@@ -4240,6 +4380,17 @@
     "title": "Contents",
     "displayTitle": "Repository permissions for \"Contents\"",
     "permissions": [
+      {
+        "category": "repos",
+        "slug": "list-repository-activities",
+        "subcategory": "repos",
+        "verb": "get",
+        "requestPath": "/repos/{owner}/{repo}/activity",
+        "access": "read",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
       {
         "category": "branches",
         "slug": "list-branches",
@@ -4494,6 +4645,19 @@
         "user-to-server": true,
         "server-to-server": true,
         "additional-permissions": []
+      },
+      {
+        "category": "repos",
+        "slug": "create-a-fork",
+        "subcategory": "forks",
+        "verb": "post",
+        "requestPath": "/repos/{owner}/{repo}/forks",
+        "access": "read",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": [
+          "administration"
+        ]
       },
       {
         "category": "git",
@@ -7663,6 +7827,17 @@
     "permissions": [
       {
         "category": "security-advisories",
+        "slug": "list-repository-security-advisories-for-an-organization",
+        "subcategory": "repository-advisories",
+        "verb": "get",
+        "requestPath": "/orgs/{org}/security-advisories",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "security-advisories",
         "slug": "list-repository-security-advisories",
         "subcategory": "repository-advisories",
         "verb": "get",
@@ -7711,6 +7886,17 @@
         "subcategory": "repository-advisories",
         "verb": "patch",
         "requestPath": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
+        "access": "write",
+        "user-to-server": true,
+        "server-to-server": true,
+        "additional-permissions": []
+      },
+      {
+        "category": "security-advisories",
+        "slug": "request-a-cve-for-a-repository-security-advisory",
+        "subcategory": "repository-advisories",
+        "verb": "post",
+        "requestPath": "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve",
         "access": "write",
         "user-to-server": true,
         "server-to-server": true,

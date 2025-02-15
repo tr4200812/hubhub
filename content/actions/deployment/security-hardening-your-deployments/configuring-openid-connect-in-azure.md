@@ -5,7 +5,7 @@ intro: Use OpenID Connect within your workflows to authenticate with Azure.
 versions:
   fpt: '*'
   ghec: '*'
-  ghes: '>=3.5'
+  ghes: '*'
 type: tutorial
 topics:
   - Security
@@ -24,6 +24,18 @@ This guide gives an overview of how to configure Azure to trust {% data variable
 {% data reusables.actions.oidc-link-to-intro %}
 
 {% data reusables.actions.oidc-security-notice %}
+
+{% ifversion ghes %}
+{% data reusables.actions.oidc-endpoints %}
+  <!-- This note is indented to align with the above reusable. -->
+  {% note %}
+
+  **Note:** Azure Active Directory (Azure AD) does not have fixed IP ranges defined for these endpoints.
+
+  {% endnote %}
+
+- Make sure that the value of the issuer claim that's included with the JSON Web Token (JWT) is set to a publicly routable URL. For more information, see "[AUTOTITLE](/enterprise-server@latest/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)."
+{% endif %}
 
 ## Adding the Federated Credentials to Azure
 
@@ -63,8 +75,8 @@ name: Run Azure Login with OIDC
 on: [push]
 
 permissions:
-      id-token: write
-      contents: read
+  id-token: write
+  contents: read
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -83,3 +95,7 @@ jobs:
 ```
 
  {% endraw %}
+
+## Further reading
+
+{% data reusables.actions.oidc-further-reading %}

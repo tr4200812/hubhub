@@ -100,7 +100,7 @@ Blob storage is required to migrate repositories with large Git source or metada
 
 Your migration source is your organization on {% data variables.product.prodname_ghe_server %}.
 
-#### `createMigrationSource` mutation
+### `createMigrationSource` mutation
 
 ```graphql
 mutation createMigrationSource($name: String!, $url: String!, $ownerId: ID!) {
@@ -120,7 +120,7 @@ mutation createMigrationSource($name: String!, $url: String!, $ownerId: ID!) {
 {% data reusables.enterprise-migration-tool.createMigrationSource-table-ec %}
 | `url` | The URL for {% data variables.location.product_location_enterprise %}. This URL does not need to be accessible from {% data variables.product.prodname_ghe_cloud %}.
 
-#### `createMigrationSource` response
+### `createMigrationSource` response
 
 ```json
 {
@@ -244,7 +244,7 @@ You may need to allowlist {% data variables.product.company_short %}'s IP ranges
 
 {% data reusables.enterprise-migration-tool.start-repository-migration-ec %}
 
-#### `startRepositoryMigration` mutation
+### `startRepositoryMigration` mutation
 
 ```graphql
 mutation startRepositoryMigration (
@@ -419,6 +419,8 @@ gh gei generate-script --github-source-org SOURCE \
 
 {% data reusables.enterprise-migration-tool.review-migration-script %}
 
+{% data reusables.enterprise-migration-tool.skip-releases %}
+
 ## Step 6: Migrate repositories
 
 {% data reusables.enterprise-migration-tool.migrate-repos-gei %}
@@ -428,7 +430,7 @@ When you migrate repositories, the {% data variables.product.prodname_gei_cli %}
 1. Connects to {% data variables.location.product_location_enterprise %} and generates two migration archives per repository, one for the Git source and one for the metadata
 1. Uploads the migration archives to the blob storage provider of your choice
 1. Starts your migration in {% data variables.product.prodname_ghe_cloud %}, using the URLs of the archives stored with your blob storage provider
-1. Deletes the migration archive
+1. Deletes the migration archive from your local machine
 
 ### Migrate multiple repositories
 

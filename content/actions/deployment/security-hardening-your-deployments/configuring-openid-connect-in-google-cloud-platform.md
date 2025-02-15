@@ -5,7 +5,7 @@ intro: Use OpenID Connect within your workflows to authenticate with Google Clou
 versions:
   fpt: '*'
   ghec: '*'
-  ghes: '>=3.5'
+  ghes: '*'
 type: tutorial
 topics:
   - Security
@@ -92,3 +92,7 @@ jobs:
 ```
 
 {% endraw %}
+
+## Further reading
+
+{% data reusables.actions.oidc-further-reading %}

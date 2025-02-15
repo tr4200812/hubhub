@@ -2,7 +2,7 @@ import { Tokenizer } from 'liquidjs'
 
 import { getLiquidConditionalsWithContent } from '../../../script/helpers/get-liquid-conditionals.js'
 import getVersionBlocks from './get-version-blocks.js'
-import { allVersions } from '../../../lib/all-versions.js'
+import { allVersions } from '#src/versions/lib/all-versions.js'
 import supportedOperators from '#src/content-render/liquid/ifversion-supported-operators.js'
 
 const supportedShortVersions = Object.values(allVersions).map((v) => v.shortName)
@@ -121,7 +121,7 @@ export default function removeLiquidStatements(content, release, nextOldestRelea
 
           versionBlock.newContent = versionBlock.content.replace(
             replaceRegex,
-            `$1 ${versionBlock.condKeyword}`
+            `$1 ${versionBlock.condKeyword}`,
           )
         }
 
@@ -141,7 +141,7 @@ export default function removeLiquidStatements(content, release, nextOldestRelea
         // Update the conditional.
         versionBlock.newContent = versionBlock.content.replace(
           versionBlock.condWithLiquid,
-          newCondWithLiquid
+          newCondWithLiquid,
         )
       }
 
@@ -163,7 +163,7 @@ export default function removeLiquidStatements(content, release, nextOldestRelea
         if (!canBeRemoved) {
           versionBlock.newContent = versionBlock.content.replace(
             versionBlock.condWithLiquid,
-            newCondWithLiquid
+            newCondWithLiquid,
           )
         }
       }
@@ -201,7 +201,7 @@ export default function removeLiquidStatements(content, release, nextOldestRelea
         if (versionBlock.hasElsif) {
           versionBlock.newContent = versionBlock.newContent.replace(
             /({%-?) elsif/,
-            `$1 ${versionBlock.condKeyword}`
+            `$1 ${versionBlock.condKeyword}`,
           )
         }
 
