@@ -34,7 +34,8 @@
         "AlistairChristie.version-identifier",
         "peterbe.ghdocs-goer",
         "GitHub.copilot",
-        "GitHub.copilot-chat"
+        "GitHub.copilot-chat",
+        "eamodio.gitlens"
       ]
     },
     "codespaces": {
